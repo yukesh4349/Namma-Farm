@@ -1,0 +1,264 @@
+================================================================================
+                    NAMMA FARM - SENSOR SETUP GUIDE
+================================================================================
+
+This document explains what sensors are needed, how to connect them, and how
+to send data to the Namma Farm web application.
+
+================================================================================
+REQUIRED SENSORS
+================================================================================
+
+1. SOIL MOISTURE SENSOR
+   - Type: Capacitive Soil Moisture Sensor v1.2 or similar
+   - Purpose: Measures soil water content
+   - Output: Analog value (0-1023) or percentage (0-100%)
+   - Recommended: YL-69 or Capacitive Soil Moisture Sensor
+   - Cost: ₹50-150
+
+2. SOIL NUTRITION SENSOR (NPK Sensor)
+   - Type: NPK Soil Nutrient Sensor (RS485)
+   - Purpose: Measures Nitrogen, Phosphorus, Potassium levels
+   - Output: Digital values for N, P, K in mg/kg
+   - Recommended: NPK Sensor with RS485 interface
+   - Cost: ₹2000-4000
+   - Alternative: Use soil testing kit + manual entry
+
+3. SMOKE/FIRE DETECTION SENSOR
+   - Type: MQ-2 Gas/Smoke Sensor
+   - Purpose: Detects smoke, fire, and combustible gases
+   - Output: Analog value (0-1023) or digital (HIGH/LOW)
+   - Recommended: MQ-2 or MQ-135
+   - Cost: ₹80-200
+
+4. OPTIONAL: DHT22 Temperature & Humidity Sensor
+   - Purpose: Local weather monitoring
+   - Output: Temperature (°C) and Humidity (%)
+   - Cost: ₹150-300
+
+================================================================================
+HARDWARE REQUIREMENTS
+================================================================================
+
+MICROCONTROLLER (Choose one):
+- NodeMCU ESP8266 (Recommended - has built-in WiFi) - ₹250-400
+- ESP32 (Better performance, more pins) - ₹400-600
+- Arduino Uno + ESP8266 WiFi Module - ₹800-1200
+
+POWER SUPPLY:
+- 5V USB power adapter or
+- Solar panel (5V, 2A) + battery for remote fields
+
+WIRING:
+- Jumper wires (Male-to-Male, Male-to-Female)
+- Breadboard for prototyping
+- Weatherproof enclosure for outdoor installation
+
+================================================================================
+SENSOR CONNECTIONS (NodeMCU ESP8266)
+================================================================================
+
+1. SOIL MOISTURE SENSOR
+   VCC  → 3.3V (NodeMCU)
+   GND  → GND (NodeMCU)
+   AOUT → A0 (Analog pin)
+
+2. MQ-2 SMOKE SENSOR
+   VCC  → 5V (NodeMCU VIN)
+   GND  → GND (NodeMCU)
+   DOUT → D1 (Digital pin)
+   AOUT → A0 (if using analog reading)
+
+3. NPK SENSOR (RS485)
+   VCC  → 5V
+   GND  → GND
+   A    → D6 (TX via RS485 module)
+   B    → D5 (RX via RS485 module)
+   Note: Requires MAX485 TTL to RS485 converter module
+
+4. DHT22 (Optional)
+   VCC  → 3.3V
+   GND  → GND
+   DATA → D2
+
+================================================================================
+WiFi CONFIGURATION
+================================================================================
+
+1. Connect NodeMCU to your WiFi network
+2. Update the Arduino code with:
+   - WiFi SSID (network name)
+   - WiFi Password
+   - Namma Farm Server URL
+
+Example WiFi Setup Code:
+```
+const char* ssid = "YourWiFiName";
+const char* password = "YourWiFiPassword";
+const char* serverUrl = "http://192.168.1.100:3000/api/sensors/data";
+```
+
+================================================================================
+HOW TO SEND DATA TO NAMMA FARM WEB APP
+================================================================================
+
+METHOD 1: HTTP POST REQUEST (Recommended)
+
+The sensors send data to the web application using HTTP POST requests.
+
+Endpoint: http://YOUR_SERVER_IP:3000/api/sensors/data
+
+Data Format (JSON):
+{
+  "userId": "your_user_id_from_app",
+  "sensorId": "SENSOR_001",
+  "type": "moisture",
+  "value": 65,
+  "timestamp": "2026-01-07T19:00:00Z"
+}
+
+Sensor Types:
+- "moisture" - Soil moisture sensor
+- "nutrition" - NPK sensor (value as {N: 45, P: 23, K: 67})
+- "fire" - Smoke/fire sensor (value as 0 or 1)
+
+METHOD 2: ARDUINO/ESP8266 SAMPLE CODE
+
+See the file: arduino_sensor_code.ino (will be created separately)
+
+The code will:
+1. Read sensor values every 30 seconds
+2. Convert to appropriate format
+3. Send HTTP POST to server
+4. Handle WiFi reconnection
+
+================================================================================
+SENSOR REGISTRATION IN WEB APP
+================================================================================
+
+1. Login to Namma Farm web application
+2. Go to Settings page
+3. Click "Add New Sensor"
+4. Enter:
+   - Sensor Name (e.g., "Field 1 Moisture Sensor")
+   - Sensor ID (e.g., "SENSOR_001") - must match Arduino code
+   - Sensor Type (Moisture/Nutrition/Fire)
+5. Click "Save"
+6. Copy your User ID from settings
+7. Update Arduino code with your User ID
+
+================================================================================
+TESTING SENSOR CONNECTION
+================================================================================
+
+1. Upload Arduino code to NodeMCU
+2. Open Serial Monitor (9600 baud)
+3. Check for:
+   - WiFi connection success
+   - Sensor readings
+   - HTTP POST response (should be 200 OK)
+4. Login to Namma Farm dashboard
+5. Verify sensor data appears in real-time
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+SENSOR NOT SENDING DATA:
+- Check WiFi connection
+- Verify server URL is correct
+- Check User ID matches your account
+- Ensure sensor ID is registered in app
+
+INCORRECT READINGS:
+- Calibrate soil moisture sensor (dry vs wet)
+- Check sensor connections (loose wires)
+- Verify power supply is stable (5V)
+
+FIRE SENSOR FALSE ALARMS:
+- MQ-2 needs 24-48 hour burn-in period
+- Keep away from direct sunlight
+- Adjust sensitivity potentiometer
+
+NO DATA ON DASHBOARD:
+- Check if fallback online data is enabled
+- Verify sensor timestamp is recent (<5 minutes)
+- Check browser console for errors
+
+================================================================================
+FALLBACK TO ONLINE DATA
+================================================================================
+
+If sensor data is not available, Namma Farm automatically uses online data:
+- Weather data from OpenWeatherMap API
+- Soil moisture estimates based on rainfall
+- This ensures continuous service even if sensors fail
+
+You can enable/disable fallback in Settings.
+
+================================================================================
+API KEYS REQUIRED
+================================================================================
+
+1. GOOGLE GEMINI API KEY (For AI features)
+   - Go to: https://makersuite.google.com/app/apikey
+   - Click "Create API Key"
+   - Copy the key
+   - Add to .env file: GEMINI_API_KEY=your_key_here
+
+2. OPENWEATHERMAP API KEY (For weather data)
+   - Go to: https://openweathermap.org/api
+   - Sign up for free account
+   - Go to API Keys section
+   - Copy the key
+   - Add to .env file: WEATHER_API_KEY=your_key_here
+   - Free tier: 1000 calls/day (sufficient for this app)
+
+================================================================================
+SENSOR PLACEMENT TIPS
+================================================================================
+
+SOIL MOISTURE:
+- Insert 2-4 inches deep in root zone
+- Keep away from irrigation pipes
+- Multiple sensors for large fields
+
+NPK SENSOR:
+- Take readings from multiple spots
+- Avoid recently fertilized areas for baseline
+- Clean sensor probe regularly
+
+FIRE SENSOR:
+- Mount 3-4 feet above ground
+- Near crop storage or dry areas
+- Protected from rain but with airflow
+
+================================================================================
+MAINTENANCE
+================================================================================
+
+Weekly:
+- Check sensor connections
+- Clean soil sensor probes
+- Verify WiFi signal strength
+
+Monthly:
+- Recalibrate soil moisture sensor
+- Check battery/power supply
+- Update firmware if needed
+
+Seasonal:
+- Deep clean all sensors
+- Replace damaged sensors
+- Adjust sensor positions for new crops
+
+================================================================================
+SUPPORT
+================================================================================
+
+For technical support:
+- Check dashboard Settings → Help section
+- Sensor data logs available in Settings
+- Contact: support@nammafarm.com (placeholder)
+
+================================================================================

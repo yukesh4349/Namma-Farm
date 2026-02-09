@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Namma Farm</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-card fade-in">
+            <div class="auth-header">
+                <div class="logo">
+                    <span class="logo-icon">🌾</span>
+                    <span class="logo-text" data-en="Namma Farm" data-ta="நம்ம பண்ணை">Namma Farm</span>
+                </div>
+                <button class="lang-toggle" onclick="toggleLanguage()">
+                    <span id="langText">தமிழ்</span>
+                </button>
+            </div>
+
+            <h2 data-en="Create Account" data-ta="கணக்கை உருவாக்கவும்">Create Account</h2>
+            <p class="auth-subtitle" data-en="Join Namma Farm for smart farming solutions"
+                data-ta="அறிவார்ந்த விவசாய தீர்வுகளுக்கு நம்ம பண்ணையில் சேரவும்">
+                Join Namma Farm for smart farming solutions
+            </p>
+
+            <form id="signupForm" onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label class="form-label" data-en="Full Name" data-ta="முழு பெயர்">Full Name</label>
+                    <input type="text" id="name" class="form-input" data-placeholder-en="Enter your full name"
+                        data-placeholder-ta="உங்கள் முழு பெயரை உள்ளிடவும்" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-en="Phone Number" data-ta="தொலைபேசி எண்">Phone Number</label>
+                    <input type="tel" id="phone" class="form-input" data-placeholder-en="Enter 10-digit phone number"
+                        data-placeholder-ta="10 இலக்க தொலைபேசி எண்ணை உள்ளிடவும்"
+                        placeholder="Enter 10-digit phone number" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-en="Password" data-ta="கடவுச்சொல்">Password</label>
+                    <input type="password" id="password" class="form-input" data-placeholder-en="Minimum 6 characters"
+                        data-placeholder-ta="குறைந்தது 6 எழுத்துக்கள்" placeholder="Minimum 6 characters" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-en="Location (City)" data-ta="இடம் (நகரம்)">Location (City)</label>
+                    <input type="text" id="location" class="form-input" data-placeholder-en="e.g., Chennai, Coimbatore"
+                        data-placeholder-ta="எ.கா., சென்னை, கோயம்புத்தூர்" placeholder="e.g., Chennai, Coimbatore">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-en="Crop Type (Optional)" data-ta="பயிர் வகை (விருப்பம்)">Crop Type
+                        (Optional)</label>
+                    <input type="text" id="cropType" class="form-input" data-placeholder-en="e.g., Rice, Wheat, Cotton"
+                        data-placeholder-ta="எ.கா., நெல், கோதுமை, பருத்தி" placeholder="e.g., Rice, Wheat, Cotton">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-en="Preferred Language" data-ta="விருப்ப மொழி">Preferred
+                        Language</label>
+                    <select id="language" class="form-select">
+                        <option value="en">English</option>
+                        <option value="ta">தமிழ் (Tamil)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg" id="signupBtn">
+                    <span data-en="Create Account" data-ta="கணக்கை உருவாக்கவும்">Create Account</span>
+                </button>
+            </form>
+
+            <p class="auth-footer">
+                <span data-en="Already have an account?" data-ta="ஏற்கனவே கணக்கு உள்ளதா?">Already have an
+                    account?</span>
+                <a href="login.html" data-en="Login" data-ta="உள்நுழைய">Login</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

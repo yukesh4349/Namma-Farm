@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Namma Farm</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+    <!-- Top Navigation -->
+    <nav class="dashboard-nav">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="logo-icon">🌾</span>
+                    <span class="logo-text" data-en="Namma Farm" data-ta="நம்ம பண்ணை">Namma Farm</span>
+                </div>
+                <div class="nav-actions">
+                    <button class="voice-toggle" id="voiceToggle" onclick="toggleVoice()" title="Voice Assistant">
+                        <span id="voiceIcon">🔊</span>
+                    </button>
+                    <button class="lang-toggle" onclick="toggleLanguage()">
+                        <span id="langText">தமிழ்</span>
+                    </button>
+                    <span class="user-name" id="userName">Farmer</span>
+                    <a href="settings.html" class="btn btn-sm btn-secondary" data-en="Settings"
+                        data-ta="அமைப்புகள்">Settings</a>
+                    <button class="btn btn-sm btn-danger" onclick="logout()" data-en="Logout"
+                        data-ta="வெளியேறு">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard-container">
+        <div class="container">
+            <!-- Welcome Section -->
+            <div class="welcome-section fade-in">
+                <h1 data-en="Welcome to Your Farm Dashboard" data-ta="உங்கள் பண்ணை டாஷ்போர்டுக்கு வரவேற்கிறோம்">Welcome
+                    to Your Farm Dashboard</h1>
+                <p id="lastUpdate" data-en="Last updated: Loading..."
+                    data-ta="கடைசியாக புதுப்பிக்கப்பட்டது: ஏற்றுகிறது...">Last updated: Loading...</p>
+            </div>
+
+            <!-- Alert Banner (Fire Alert) -->
+            <div id="fireAlertBanner" class="alert-banner hidden"></div>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Weather Advisory Card -->
+                <div class="dashboard-card card-large slide-in-left">
+                    <div class="card-header">
+                        <span class="card-icon">🌤️</span>
+                        <h3 data-en="Weather-Based Crop Advisory" data-ta="வானிலை அடிப்படையிலான பயிர் ஆலோசனை">
+                            Weather-Based Crop Advisory</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="weatherInfo" class="weather-info">
+                            <div class="spinner"></div>
+                        </div>
+                        <div id="cropAdvisory" class="advisory-content">
+                            <p data-en="Loading advisory..." data-ta="ஆலோசனை ஏற்றுகிறது...">Loading advisory...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soil Health Card -->
+                <div class="dashboard-card slide-in-right">
+                    <div class="card-header">
+                        <span class="card-icon">🌱</span>
+                        <h3 data-en="Soil Health" data-ta="மண் ஆரோக்கியம்">Soil Health</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="soilMoisture" class="soil-metric">
+                            <label data-en="Moisture Level" data-ta="ஈரப்பதம் அளவு">Moisture Level</label>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="moistureBar" style="width: 0%"></div>
+                            </div>
+                            <span id="moistureValue">--</span>
+                            <span id="moistureSource" class="data-source"></span>
+                        </div>
+                        <div id="soilNutrition" class="soil-nutrition">
+                            <p data-en="Loading nutrition data..." data-ta="ஊட்டச்சத்து தரவு ஏற்றுகிறது...">Loading
+                                nutrition data...</p>
+                        </div>
+                        <div id="soilRecommendations" class="recommendations">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fire Alert Card -->
+                <div class="dashboard-card card-alert slide-in-left">
+                    <div class="card-header">
+                        <span class="card-icon">🔥</span>
+                        <h3 data-en="Fire Alert System" data-ta="தீ எச்சரிக்கை அமைப்பு">Fire Alert System</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="fireStatus" class="fire-status">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop Yield Prediction Card -->
+                <div class="dashboard-card card-large slide-in-right">
+                    <div class="card-header">
+                        <span class="card-icon">📊</span>
+                        <h3 data-en="Crop Yield Prediction" data-ta="பயிர் விளைச்சல் கணிப்பு">Crop Yield Prediction</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="yieldPrediction" class="yield-content">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/voice.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>

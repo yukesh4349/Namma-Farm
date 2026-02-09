@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Namma Farm</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-card fade-in">
+            <div class="auth-header">
+                <div class="logo">
+                    <span class="logo-icon">🌾</span>
+                    <span class="logo-text" data-en="Namma Farm" data-ta="நம்ம பண்ணை">Namma Farm</span>
+                </div>
+                <button class="lang-toggle" onclick="toggleLanguage()">
+                    <span id="langText">தமிழ்</span>
+                </button>
+            </div>
+
+            <h2 data-en="Welcome Back" data-ta="மீண்டும் வருக">Welcome Back</h2>
+            <p class="auth-subtitle" data-en="Login to access your farm dashboard"
+                data-ta="உங்கள் பண்ணை டாஷ்போர்டை அணுக உள்நுழையவும்">
+                Login to access your farm dashboard
+            </p>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label" data-en="Phone Number" data-ta="தொலைபேசி எண்">Phone Number</label>
+                    <input type="tel" id="phone" class="form-input" data-placeholder-en="Enter 10-digit phone number"
+                        data-placeholder-ta="10 இலக்க தொலைபேசி எண்ணை உள்ளிடவும்"
+                        placeholder="Enter 10-digit phone number" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" data-en="Password" data-ta="கடவுச்சொல்">Password</label>
+                    <input type="password" id="password" class="form-input" data-placeholder-en="Enter your password"
+                        data-placeholder-ta="உங்கள் கடவுச்சொல்லை உள்ளிடவும்" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg" id="loginBtn">
+                    <span data-en="Login" data-ta="உள்நுழைய">Login</span>
+                </button>
+            </form>
+
+            <p class="auth-footer">
+                <span data-en="Don't have an account?" data-ta="கணக்கு இல்லையா?">Don't have an account?</span>
+                <a href="signup.html" data-en="Sign Up" data-ta="பதிவு செய்ய">Sign Up</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

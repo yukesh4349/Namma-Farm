@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Namma Farm</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+    <nav class="dashboard-nav">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="logo-icon">🌾</span>
+                    <span class="logo-text" data-en="Namma Farm" data-ta="நம்ம பண்ணை">Namma Farm</span>
+                </div>
+                <div class="nav-actions">
+                    <button class="lang-toggle" onclick="toggleLanguage()">
+                        <span id="langText">தமிழ்</span>
+                    </button>
+                    <a href="dashboard.html" class="btn btn-sm btn-secondary" data-en="Dashboard"
+                        data-ta="டாஷ்போர்டு">Dashboard</a>
+                    <button class="btn btn-sm btn-danger" onclick="logout()" data-en="Logout"
+                        data-ta="வெளியேறு">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div class="container">
+            <h1 data-en="Settings & Sensor Management" data-ta="அமைப்புகள் & சென்சார் மேலாண்மை">Settings & Sensor
+                Management</h1>
+
+            <div class="dashboard-grid">
+                <!-- User Profile -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <span class="card-icon">👤</span>
+                        <h3 data-en="User Profile" data-ta="பயனர் சுயவிவரம்">User Profile</h3>
+                    </div>
+                    <div class="card-body" id="userProfile">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+
+                <!-- Sensor Management -->
+                <div class="dashboard-card card-large">
+                    <div class="card-header">
+                        <span class="card-icon">📡</span>
+                        <h3 data-en="Registered Sensors" data-ta="பதிவு செய்யப்பட்ட சென்சார்கள்">Registered Sensors</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="sensorList">
+                            <div class="spinner"></div>
+                        </div>
+
+                        <button class="btn btn-primary mt-3" onclick="showAddSensorForm()" data-en="Add New Sensor"
+                            data-ta="புதிய சென்சாரைச் சேர்க்கவும்">
+                            Add New Sensor
+                        </button>
+
+                        <div id="addSensorForm" class="hidden mt-3">
+                            <h4 data-en="Register New Sensor" data-ta="புதிய சென்சாரைப் பதிவு செய்யவும்">Register New
+                                Sensor</h4>
+                            <form onsubmit="handleAddSensor(event)">
+                                <div class="form-group">
+                                    <label class="form-label" data-en="Sensor ID" data-ta="சென்சார் ID">Sensor
+                                        ID</label>
+                                    <input type="text" id="sensorId" class="form-input" placeholder="e.g., SENSOR_001"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" data-en="Sensor Type" data-ta="சென்சார் வகை">Sensor
+                                        Type</label>
+                                    <select id="sensorType" class="form-select" required>
+                                        <option value="moisture">Soil Moisture</option>
+                                        <option value="nutrition">NPK Nutrition</option>
+                                        <option value="fire">Fire/Smoke</option>
+                                        <option value="temperature">Temperature</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" data-en="Sensor Name" data-ta="சென்சார் பெயர்">Sensor
+                                        Name</label>
+                                    <input type="text" id="sensorName" class="form-input"
+                                        placeholder="e.g., Field 1 Moisture" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" data-en="Register Sensor"
+                                    data-ta="சென்சாரைப் பதிவு செய்யவும்">Register Sensor</button>
+                                <button type="button" class="btn btn-secondary" onclick="hideAddSensorForm()"
+                                    data-en="Cancel" data-ta="ரத்து செய்">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <span class="card-icon">⚙️</span>
+                        <h3 data-en="App Settings" data-ta="செயலி அமைப்புகள்">App Settings</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <input type="checkbox" id="useFallback" onchange="updateFallbackSetting()">
+                                <span data-en="Use online data when sensors unavailable"
+                                    data-ta="சென்சார்கள் கிடைக்காதபோது ஆன்லைன் தரவைப் பயன்படுத்தவும்">
+                                    Use online data when sensors unavailable
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <p data-en="Your User ID (for sensor configuration):"
+                                data-ta="உங்கள் பயனர் ID (சென்சார் உள்ளமைவுக்கு):">
+                                Your User ID (for sensor configuration):
+                            </p>
+                            <code id="userId"
+                                style="background: var(--light-gray); padding: var(--spacing-sm); display: block; border-radius: var(--radius-sm);"></code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+
+</html>
